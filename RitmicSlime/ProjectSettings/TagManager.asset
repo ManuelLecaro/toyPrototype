@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Magnifier
+  - Obstacle
   layers:
   - Default
   - TransparentFX
