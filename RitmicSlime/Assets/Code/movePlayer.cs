@@ -66,7 +66,7 @@ public class movePlayer : MonoBehaviour {
 		var otherObject = collision.collider.gameObject;
 		if( otherObject.tag == "Magnifier" ) {
 			var scale = this.transform.localScale;
-			scale.y *= 1.15f;
+			scale.y *= 1.25f;
 			this.transform.localScale = scale;
 			otherObject.SetActive(false);
             var xPos = Random.Range(-3.5f, 5.6f);
@@ -80,7 +80,7 @@ public class movePlayer : MonoBehaviour {
 
         if( otherObject.tag == "Obstacle" ) {
 			var scale = this.transform.localScale;
-			scale.y *= 0.75f;
+			scale.y *= 0.95f;
 			this.transform.localScale = scale;
 			otherObject.SetActive(false);
             var xPos = Random.Range(-3.5f, 5.6f);
