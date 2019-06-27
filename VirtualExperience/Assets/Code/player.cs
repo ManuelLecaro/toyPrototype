@@ -46,8 +46,7 @@ public class player : MonoBehaviour
      	   {
      	         startBlinking = false;
      	        spriteBlinkingTotalTimer = 0.0f;
-     	        this.gameObject.GetComponent<SpriteRenderer> ().enabled = true;   // according to 
-     	                 //your sprite
+     	        this.gameObject.GetComponent<SpriteRenderer> ().enabled = true;
      	        return;
      	     }
 	
@@ -56,9 +55,9 @@ public class player : MonoBehaviour
      	{
      	    spriteBlinkingTimer = 0.0f;
      	    if (this.gameObject.GetComponent<SpriteRenderer> ().enabled == true) {
-     	        this.gameObject.GetComponent<SpriteRenderer> ().enabled = false;  //make changes
+     	        this.gameObject.GetComponent<SpriteRenderer> ().enabled = false;  
      	    } else {
-     	        this.gameObject.GetComponent<SpriteRenderer> ().enabled = true;   //make changes
+     	        this.gameObject.GetComponent<SpriteRenderer> ().enabled = true;   
      	    }
      	}
          }
@@ -104,9 +103,8 @@ public class player : MonoBehaviour
         var otherObject = collision.collider.gameObject;
         if (otherObject.tag == "Food")
         {
-            var scale = this.transform.localScale;
-            scale.y *= 1.02f;
-            this.transform.localScale = scale;
+            
+            otherObject.SetActive(false);
             //otherObject.SetActive(false);
             //GameObject.Destroy(otherObject);
         }

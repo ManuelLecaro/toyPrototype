@@ -7,18 +7,48 @@ public class enemy : MonoBehaviour {
     public Rigidbody2D body;
     public Animator anim;
 	private float valor;
+	private float maxDist;
+    private Vector2 initialPosition;
+    private float minDist;
+    private int direction;
+    public float movingSpeed;
 	// Use this for initialization
-	void Start () {
-		trans = this.transform;
-        body = this.GetComponent<Rigidbody2D>();
-        anim = this.GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		var val = body.velocity;
-		valor = Random.Range(-10.0f, 10.0f);
-		//body.velocity += valor * Vector2.up;
-		val.x += valor*valor;
-	}
+    void Start ()
+    {
+        initialPosition = transform.position;
+        direction = -1;
+        maxDist += transform.position.x;
+        minDist -= transform.position.x;
+    }
+   
+    // Update is called once per frame
+    void Update ()
+    {
+        switch (direction)
+        {
+             case -1:
+                // Moving Left
+                if( transform.position.x > minDist)
+                    {
+                       GetComponent <Rigidbody2D>().velocity = new Vector2(-movingSpeed,GetComponent<Rigidbody2D>().velocity.y);
+                    }
+                else
+                    {
+                       direction *= -1;
+                    }
+                break;
+             case 1:
+                  //Moving Right
+                if(transform.position.x < maxDist)
+                    {
+                        GetComponent <Rigidbody2D>().velocity = new Vector2(movingSpeed,GetComponent<Rigidbody2D>().velocity.y);
+                    }
+                else
+                    {
+                        direction *= -1;
+                    }
+            break;
+        }
+    }
+ 
 }
