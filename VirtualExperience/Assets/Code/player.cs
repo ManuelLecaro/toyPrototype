@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class player : MonoBehaviour
 {
     public Transform trans;
@@ -113,7 +113,18 @@ public class player : MonoBehaviour
              startBlinking = true;
             //otherObject.SetActive(false);
             //GameObject.Destroy(otherObject);
+        }if(otherObject.tag == "Finish"){
+
+            var desiredPos = new Vector3(-17.0f, 2.3f, transform.position.z);
+            this.transform.position = desiredPos;
+
+        }if(otherObject.tag == "Exit"){
+
+            var desiredPos = new Vector3(-15.0f, -1.54f, transform.position.z);
+            this.transform.position = desiredPos;
+
         }
+
     }
 
       

@@ -2,53 +2,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy : MonoBehaviour {
+public class enemy : MonoBehaviour
+{
+    Rigidbody2D enemyRigidBody2D;
     public Transform trans;
-    public Rigidbody2D body;
-    public Animator anim;
-	private float valor;
-	private float maxDist;
-    private Vector2 initialPosition;
-    private float minDist;
-    private int direction;
-    public float movingSpeed;
-	// Use this for initialization
-    void Start ()
+    public float speed;
+    private float initialPox;
+    public float finalPosX;
+    public bool _isFacingRight;
+    public bool _moveRight;
+    public int unit;
+    private int count = 0;
+
+    // Use this for initialization
+    public void Awake()
     {
-        initialPosition = transform.position;
-        direction = -1;
-        maxDist += transform.position.x;
-        minDist -= transform.position.x;
-    }
-   
-    // Update is called once per frame
-    void Update ()
-    {
-        switch (direction)
-        {
-             case -1:
-                // Moving Left
-                if( transform.position.x > minDist)
-                    {
-                       GetComponent <Rigidbody2D>().velocity = new Vector2(-movingSpeed,GetComponent<Rigidbody2D>().velocity.y);
-                    }
-                else
-                    {
-                       direction *= -1;
-                    }
-                break;
-             case 1:
-                  //Moving Right
-                if(transform.position.x < maxDist)
-                    {
-                        GetComponent <Rigidbody2D>().velocity = new Vector2(movingSpeed,GetComponent<Rigidbody2D>().velocity.y);
-                    }
-                else
-                    {
-                        direction *= -1;
-                    }
-            break;
+         trans = this.transform;
+         enemyRigidBody2D = this.GetComponent<Rigidbody2D>();
+        this.initialPox = trans.position.x;
+        if(initialPox>finalPosX){
+            _moveRight = false;
+        }else{
+            _moveRight = true;
         }
+        
     }
- 
+
+
+// Update is called once per frame
+public void Update()
+{
+
+    if (unit>count)
+    {
+        enemyRigidBody2D.AddForce(Vector2.right * speed * Time.deltaTime);
+        if(!_isFacingRight){
+            Flip();
+        }
+        count += 1;
+    }
+
+    if (enemyRigidBody2D.position.x >= finalPosX){  
+        _moveRight = false;
+    }
+    if (unit<count)
+    {
+        enemyRigidBody2D.AddForce(-Vector2.right * speed * Time.deltaTime);
+        if(_isFacingRight){
+            Flip();
+        }
+        count -=1;
+    }
+    if (enemyRigidBody2D.position.x <= this.initialPox){
+        _moveRight = true;
+    }
+         
+}
+
+    public void Flip()
+    {
+        trans.rotation = Quaternion.Euler(0, 180, 0);
+        _isFacingRight = !_isFacingRight;
+    }
+
 }
